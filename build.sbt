@@ -18,8 +18,8 @@ scalacOptions in (Compile, doc) <++= baseDirectory.map {
 scalacOptions in Test ++= Seq("-Yrangepos")
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "2.2.3"  % "test" withSources(),
-  "junit"         %  "junit"     % "4.12"   % "test"
+  "com.typesafe.play" %% "play-json" % "2.4.2" withSources(),
+  "org.scalatestplus" %% "play"      % "1.4.0-M3" % "test"
 )
 
 javacOptions ++= Seq("-Xlint:deprecation", "-Xlint:unchecked", "-source", "1.7", "-target", "1.7", "-g:vars")
