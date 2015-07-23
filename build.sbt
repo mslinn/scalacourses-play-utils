@@ -17,10 +17,19 @@ scalacOptions in (Compile, doc) <++= baseDirectory.map {
 }
 scalacOptions in Test ++= Seq("-Yrangepos")
 
-libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-json" % "2.4.2" withSources(),
-  "org.scalatestplus" %% "play"      % "1.4.0-M3" % "test"
-)
+libraryDependencies <++= scalaVersion {
+  case sv if sv.startsWith("2.11") =>
+    Seq(
+      "com.typesafe.play" %% "play-json" % "2.4.2"    % "provided",
+      "org.scalatestplus" %% "play"      % "1.4.0-M3" % "test"
+    )
+
+  case sv if sv.startsWith("2.10") =>
+    Seq(
+      "com.typesafe.play" %% "play"      % "2.2.6" % "provided",
+      "org.scalatestplus" %% "play"      % "1.0.0" % "test"
+    )
+}
 
 javacOptions ++= Seq("-Xlint:deprecation", "-Xlint:unchecked", "-source", "1.7", "-target", "1.7", "-g:vars")
 
