@@ -12,6 +12,14 @@ class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
       Json.toJson(Map(1L -> 2)) mustEqual Json.arr(List(JsNumber(1L), JsNumber(2)))
       Json.toJson(Map(1 -> List(2L, 3L))) mustEqual Json.arr(List(JsNumber(1), Json.arr(JsNumber(2), JsNumber(3))))
     }
+
+    "Convert from JSON" in {
+      val jsValue: JsValue = Json.parse("""{"key1":1,"key2":2}""")
+      val actual1: JsResult[Map[String, Int]] = Json.fromJson[Map[String, Int]](jsValue)
+      actual1.get mustEqual Map("key1" -> 1, "key2" -> 2)
+
+      val actual2: JsResult[Map[String, Long]] = Json.fromJson[Map[String, Long]](jsValue)
+      actual2.get mustEqual Map("key1" -> 1L, "key2" -> 2L)
+    }
   }
 }
-

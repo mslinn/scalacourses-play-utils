@@ -5,7 +5,7 @@ Utilities for Play Referenced from ScalaCourses.com
 
 Add two lines to `build.sbt`.
 
- * Add the `pfview` dependency:
+ * Add the `scalacourses-play-utils` dependency:
 ````
 "com.micronautics" %% "scalacourses-play-utils" % "0.1.0" withSources()
 ````
