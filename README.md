@@ -1,6 +1,8 @@
 # scalacourses-play-utils
 Utilities for Play Referenced from ScalaCourses.com
 
+See the unit tests for usage examples.
+
 ## Installing ##
 
 Add two lines to `build.sbt`.

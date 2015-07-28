@@ -3,8 +3,6 @@ package com.micronautics.playUtils
 import play.api.libs.json._
 import play.api.data.validation._
 
-import scala.collection.immutable.Iterable
-
 trait JsonFormats {
   implicit def tuple2Reads[A, B](implicit aReads: Reads[A], bReads: Reads[B]): Reads[(A, B)] = Reads[(A, B)] {
     case JsArray(arr) if arr.size == 2 => for {
@@ -36,7 +34,7 @@ trait JsonFormats {
     }
   }
 
-  implicit val writeMapStringIntWrites = new Writes[Map[String, Int]] {
+  implicit val mapStringIntWrites = new Writes[Map[String, Int]] {
     def writes(mapStringInt: Map[String, Int]) = {
       Json.arr(mapStringInt.map {
         case (key, value) => Json.obj(key -> value)
@@ -44,7 +42,7 @@ trait JsonFormats {
     }
   }
 
-  implicit val writeMapStringLongWrites = new Writes[Map[String, Long]] {
+  implicit val mapStringLongWrites = new Writes[Map[String, Long]] {
     def writes(mapStringLong: Map[String, Long]) = {
       Json.arr(mapStringLong.map {
         case (key, value) => Json.obj(key -> value)
