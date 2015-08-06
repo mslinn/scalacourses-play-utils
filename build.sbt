@@ -1,6 +1,6 @@
 import bintray.Keys._
 
-version := "0.1.1"
+version := "0.1.2"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
