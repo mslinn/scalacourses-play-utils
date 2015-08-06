@@ -15,7 +15,7 @@ object include {
     val (fileName, suffix) = filePath.splitAt(filePath.lastIndexOf("."))
 
     // Retrieve the file with the current language, or as a fallback, without any suffix
-    val maybeFile =
+    val maybeFile: Option[File] =
       Play.getExistingFile(rootDir + "/" + fileName + "_" + lang.language + suffix).
       orElse(Play.getExistingFile(rootDir + "/" + filePath))
 
