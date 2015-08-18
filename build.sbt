@@ -1,6 +1,6 @@
 import bintray.Keys._
 
-version := "0.1.2"
+version := "0.1.3"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
@@ -20,6 +20,7 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 libraryDependencies <++= scalaVersion {
   case sv if sv.startsWith("2.11") =>
     Seq(
+      "com.typesafe.play" %% "play"      % "2.4.2"    % "provided",
       "com.typesafe.play" %% "play-json" % "2.4.2"    % "provided",
       "org.scalatestplus" %% "play"      % "1.4.0-M3" % "test"
     )
