@@ -5,7 +5,7 @@ import play.api.i18n.{Messages, DefaultLangs, Lang, DefaultMessagesApi}
 import play.api.mvc.RequestHeader
 
 package object i18n {
-  def bestLang(implicit request: RequestHeader) = {
+  def bestLang(implicit request: RequestHeader): Lang = {
     import play.api.Play.current
     val perfectLang = request.acceptLanguages intersect Lang.availables
     perfectLang.headOption.getOrElse {
@@ -18,7 +18,7 @@ package object i18n {
 
   /**  Usage: ```implicit val messages = userMessages
     * Messages("key")``` */
-  def userMessages(implicit request: RequestHeader) = {
+  def userMessages(implicit request: RequestHeader): Messages = {
     val config = play.api.Play.current.configuration
     lazy val defaultMessages = new DefaultMessagesApi(Environment.simple(), config, new DefaultLangs(config))
     Messages(bestLang, defaultMessages)
