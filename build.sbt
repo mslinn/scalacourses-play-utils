@@ -1,6 +1,6 @@
 import bintray.Keys._
 
-version := "0.1.3"
+version := "0.1.5"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
@@ -59,4 +59,3 @@ publishArtifact in Test := false
 cancelable := true
 
 sublimeTransitive := true
-
