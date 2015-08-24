@@ -5,11 +5,28 @@ import play.api.libs.json._
 import play.api.data.validation._
 
 trait JsonFormats {
+  protected[playUtils] def sanitizeDuration(secondsStr: String): Seconds = {
+    val c1 = secondsStr.indexOf(":")
+    if (c1>=0) {
+      val c2 = secondsStr.lastIndexOf(":")
+      Seconds.seconds(secondsStr.substring(c2+1).toInt +
+                      secondsStr.substring(c1+1, c1+3).toInt * 60 +
+                      secondsStr.substring(0, c1).toInt * 60 *60)
+    } else
+      try {
+        Seconds.seconds(secondsStr.toInt)
+      } catch {
+        case e: Exception =>
+          println(e.getMessage)
+          Seconds.seconds(0)
+      }
+  }
+
   /** Converts from seconds */
   implicit object DaysReads extends Reads[Days] {
     def reads(json: JsValue) = json match {
       case JsNumber(number) => JsSuccess(Days.days(number.toInt / 60 / 60 / 24))
-      case JsString(string) => JsSuccess(Days.days(string.toInt / 60 / 60 / 24))
+      case JsString(string) => JsSuccess(Days.days(sanitizeDuration(string).getSeconds / 60 / 60 / 24))
       case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.days"))))
     }
   }
@@ -23,7 +40,7 @@ trait JsonFormats {
   implicit object HoursReads extends Reads[Hours] {
     def reads(json: JsValue) = json match {
       case JsNumber(number) => JsSuccess(Hours.hours(number.toInt / 60 / 60))
-      case JsString(string) => JsSuccess(Hours.hours(string.toInt / 60 / 60))
+      case JsString(string) => JsSuccess(Hours.hours(sanitizeDuration(string).getSeconds / 60 / 60))
       case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.hours"))))
     }
   }
@@ -37,7 +54,7 @@ trait JsonFormats {
   implicit object MinutesReads extends Reads[Minutes] {
     def reads(json: JsValue) = json match {
       case JsNumber(number) => JsSuccess(Minutes.minutes(number.toInt / 60))
-      case JsString(string) => JsSuccess(Minutes.minutes(string.toInt / 60))
+      case JsString(string) => JsSuccess(Minutes.minutes(sanitizeDuration(string).getSeconds / 60))
       case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.minutes"))))
     }
   }
@@ -50,7 +67,7 @@ trait JsonFormats {
   implicit object SecondsReads extends Reads[Seconds] {
     def reads(json: JsValue) = json match {
       case JsNumber(number) => JsSuccess(Seconds.seconds(number.toInt))
-      case JsString(string) => JsSuccess(Seconds.seconds(string.toInt))
+      case JsString(string) => JsSuccess(Seconds.seconds(sanitizeDuration(string).getSeconds))
       case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.Minutes"))))
     }
   }
