@@ -1,12 +1,12 @@
 import bintray.Keys._
 
-version := "0.1.6"
+version := "0.1.7"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 crossScalaVersions := Seq("2.10.5", "2.11.7")
-scalaVersion := "2.11.7"
+scalaVersion := "2.10.5"
 scalacOptions ++= Seq("-deprecation", "-encoding", "UTF-8", "-feature", "-target:jvm-1.7", "-unchecked",
     "-Ywarn-adapted-args", "-Ywarn-value-discard", "-Xlint")
 scalacOptions in (Compile, doc) <++= baseDirectory.map {
