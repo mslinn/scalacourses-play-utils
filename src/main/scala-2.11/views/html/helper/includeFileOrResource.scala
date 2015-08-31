@@ -1,4 +1,4 @@
-package views.html
+package views.html.helper
 
 import java.io.File
 import play.api.Play

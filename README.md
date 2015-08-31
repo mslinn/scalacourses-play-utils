@@ -9,7 +9,7 @@ Add two lines to `build.sbt`.
 
  * Add the `scalacourses-play-utils` dependency:
 ````
-"com.micronautics" %% "scalacourses-play-utils" % "0.1.7" withSources()
+"com.micronautics" %% "scalacourses-play-utils" % "0.1.9" withSources()
 ````
 
  * Add this to the `resolvers`:

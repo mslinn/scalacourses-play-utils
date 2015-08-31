@@ -1,10 +1,10 @@
-package play.api.templates
+package views.html.helper
 
 import java.io.File
-import play.twirl.api.Html
 import play.api.Play
 import play.api.Play.current
 import play.api.i18n._
+import play.api.templates.Html
 import scala.io.Source.fromFile
 
 object include {

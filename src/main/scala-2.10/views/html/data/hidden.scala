@@ -1,7 +1,7 @@
 package views.html.data
 
 import play.api.data.Field
-import play.twirl.api.Html
+import play.api.templates.Html
 
 object hidden {
   def apply(field: Field): Html =
