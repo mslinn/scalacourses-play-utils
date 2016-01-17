@@ -9,7 +9,7 @@ Add two lines to `build.sbt`.
 
  * Add the `scalacourses-play-utils` dependency:
 ````
-"com.micronautics" %% "scalacourses-play-utils" % "0.1.9" withSources()
+"com.micronautics" %% "scalacourses-play-utils" % "0.1.10" withSources()
 ````
 
  * Add this to the `resolvers`:
@@ -17,4 +17,4 @@ Add two lines to `build.sbt`.
 "micronautics/play on bintray" at "http://dl.bintray.com/micronautics/play"
 ````
 
-This library has been built against Scala 2.10.5 / Play 2.2.6 and Scala 2.11.7 / Play 2.4.2.
+This library has been built against Scala 2.10.6 / Play 2.2.6 and Scala 2.11.7 / Play 2.4.2.

@@ -24,7 +24,7 @@ object include {
       val file2 = if (file.isDirectory) new File(file, "index.html") else file
       val content = fromFile(file2).mkString
       Html(content)
-    } getOrElse Html("File Not Found")
+    } getOrElse Html(s"""<span class="error">Include failed. rootDir='$rootDir'; filePath='$filePath'; lang=${lang.code}</span>""")
   }
 }
 

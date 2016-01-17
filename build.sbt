@@ -1,11 +1,9 @@
-import bintray.Keys._
-
-version := "0.1.9"
+version := "0.1.10"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+crossScalaVersions := Seq("2.10.6", "2.11.7")
 scalaVersion := "2.11.7"
 scalacOptions ++= Seq("-deprecation", "-encoding", "UTF-8", "-feature", "-target:jvm-1.7", "-unchecked",
     "-Ywarn-adapted-args", "-Ywarn-value-discard", "-Xlint")
@@ -27,8 +25,8 @@ libraryDependencies <++= scalaVersion {
 
   case sv if sv.startsWith("2.10") =>
     Seq(
-      "com.typesafe.play" %% "play"      % "2.2.6" % "provided",
-      "org.scalatestplus" %% "play"      % "1.0.0" % "test"
+      "com.typesafe.play" %% "play" % "2.2.6" % "provided",
+      "org.scalatestplus" %% "play" % "1.0.0" % "test"
     )
 }
 
@@ -51,11 +49,9 @@ logLevel in test := Level.Info
 initialCommands in console := """
                                 |""".stripMargin
 
-bintrayPublishSettings
-bintrayOrganization in bintray := Some("micronautics")
-repository in bintray := "play"
+bintrayOrganization := Some("micronautics")
+bintrayRepository := "play"
+
 publishArtifact in Test := false
 
 cancelable := true
-
-sublimeTransitive := true
