@@ -3,7 +3,7 @@ package com.micronautics
 import org.joda.time.{Minutes, Seconds, Hours, Days}
 import play.api.libs.json._
 import org.scalatestplus.play._
-import com.micronautics.playUtils.JsonFormats
+import com.micronautics.playUtils._
 
 class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
   def daySeconds(d: Int) = d * 60 * 60 * 24
@@ -40,6 +40,12 @@ class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
       Json.fromJson[Hours](  Json.parse(hourSeconds(8).toString)).get   mustEqual Hours.hours(8)
       Json.fromJson[Minutes](Json.parse(minuteSeconds(7).toString)).get mustEqual Minutes.minutes(7)
       Json.fromJson[Seconds](Json.parse(seconds(6).toString)).get       mustEqual Seconds.seconds(6)
+    }
+
+    "Create Formatters for Java enums" in {
+      implicit val myEnumFormat = javaEnumFormat[DiscountEnum]
+      Json.toJson(DiscountEnum.FullPrice) === "FullPrice"
+      Json.fromJson[DiscountEnum](JsString("FullPrice")) === DiscountEnum.FullPrice
     }
   }
 }
