@@ -6,10 +6,10 @@ import org.scalatestplus.play._
 import com.micronautics.playUtils._
 
 class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
-  def daySeconds(d: Int) = d * 60 * 60 * 24
-  def hourSeconds(h: Int) = h * 60 * 60
-  def minuteSeconds(m: Int) = m * 60
-  def seconds(s: Int) = s
+  def daySeconds(d: Int): Int = d * 60 * 60 * 24
+  def hourSeconds(h: Int): Int = h * 60 * 60
+  def minuteSeconds(m: Int): Int = m * 60
+  def seconds(s: Int): Int = s
 
   "Tuple2[Int, String]" should {
     "Convert to JSON" in {
@@ -46,6 +46,7 @@ class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
       implicit val myEnumFormat = javaEnumFormat[DiscountEnum]
       Json.toJson(DiscountEnum.FullPrice) === "FullPrice"
       Json.fromJson[DiscountEnum](JsString("FullPrice")) === DiscountEnum.FullPrice
+      ()
     }
   }
 }

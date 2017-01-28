@@ -1,16 +1,15 @@
 package views.html.helper
 
 import java.io.File
-import play.api.Play
-import play.api.Play.{current, resourceAsStream}
+import javax.inject.Inject
 import play.api.i18n._
 import play.twirl.api.Html
 import scala.io.Codec
 import scala.io.Source.{fromFile, fromInputStream}
 
-object includeFileOrResource {
+class includeFileOrResource @Inject() (implicit env: play.api.Environment) {
   def forFile(path: String): Option[String] = {
-    val maybeFile = Play.getExistingFile(path)
+    val maybeFile = env.getExistingFile(path)
     val maybeContents: Option[String] = maybeFile.map { fromFile(_).mkString }
     maybeContents.orElse {
       maybeFile.map { file => // Read the file's content and wrap it in HTML or return an error message
@@ -31,7 +30,7 @@ object includeFileOrResource {
     // Retrieve the file with the current language, or as a fallback, without any suffix
     val result: String = forFile(s"$rootDir/${fileName}_${lang.language}$suffix").getOrElse {
       forFile(s"$rootDir/$path").orElse {
-        resourceAsStream(s"$rootDir/$path").map(fromInputStream(_)(Codec.UTF8).mkString)
+        env.resourceAsStream(s"$rootDir/$path").map(fromInputStream(_)(Codec.UTF8).mkString)
       }.getOrElse("File Not Found")
     }
     Html(result)
