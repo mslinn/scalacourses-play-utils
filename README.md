@@ -1,5 +1,6 @@
 # scalacourses-play-utils
 
+[![Build Status](https://travis-ci.org/mslinn/scalacourses-play-utils.svg?branch=master)](https://travis-ci.org/mslinn/scalacourses-play-utils)
 [ ![Download](https://api.bintray.com/packages/micronautics/play/scalacourses-play-utils/images/download.svg) ](https://bintray.com/micronautics/play/scalacourses-play-utils/_latestVersion)
  
 Utilities for Play Referenced from ScalaCourses.com
