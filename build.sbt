@@ -3,35 +3,58 @@ name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-crossScalaVersions := Seq("2.10.6", "2.11.8")
-scalaVersion := "2.11.8"
-scalacOptions ++= scalaVersion {
-  case sv if sv.startsWith("2.11") =>
-    Seq("-deprecation", "-encoding", "UTF-8", "-feature", "-target:jvm-1.8", "-unchecked",
-    "-Ywarn-adapted-args", "-Ywarn-value-discard", "-Xlint")
+crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
+scalaVersion := "2.12.1"
 
-  case sv if sv.startsWith("2.10") =>
-    Seq("-deprecation", "-encoding", "UTF-8", "-feature", "-target:jvm-1.7", "-unchecked",
-        "-Ywarn-adapted-args", "-Ywarn-value-discard", "-Xlint")
-}.value
+scalacOptions ++= (
+  scalaVersion {
+    case sv if sv.startsWith("2.10") => List(
+      "-target:jvm-1.7"
+    )
+    case _ => List(
+      "-target:jvm-1.8",
+      "-Ywarn-unused"
+    )
+  }.value ++ Seq(
+    "-deprecation",
+    "-encoding", "UTF-8",
+    "-feature",
+    "-unchecked",
+    "-Ywarn-adapted-args",
+    "-Ywarn-dead-code",
+    "-Ywarn-numeric-widen",
+    "-Ywarn-value-discard",
+    "-Xfuture",
+    "-Xlint"
+  )
+)
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
-scalacOptions in (Compile, doc) <++= baseDirectory.map {
+scalacOptions in (Compile, doc) ++= baseDirectory.map {
   (bd: File) => Seq[String](
      "-sourcepath", bd.getAbsolutePath,
      "-doc-source-url", "https://github.com/mslinn/scalacourses-play-utils/tree/master€{FILE_PATH}.scala"
   )
-}
+}.value
 
 libraryDependencies ++= scalaVersion {
+  case sv if sv.startsWith("2.12") =>
+    val playVer = "2.6.0-M1"
+    Seq(
+      "com.typesafe.play"      %% "play"               % playVer    % "provided",
+      "com.typesafe.play"      %% "play-json"          % playVer    % "provided",
+      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0-M2" % "test",
+      "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
+    )
+
   case sv if sv.startsWith("2.11") =>
     val playVer = "2.5.12"
     Seq(
       "com.typesafe.play"      %% "play"               % playVer % "provided",
       "com.typesafe.play"      %% "play-json"          % playVer % "provided",
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
-      "ch.qos.logback"         %  "logback-classic"    % "1.1.9"
+      "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
     )
 
   case sv if sv.startsWith("2.10") =>

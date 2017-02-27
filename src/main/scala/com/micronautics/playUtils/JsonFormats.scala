@@ -2,7 +2,6 @@ package com.micronautics.playUtils
 
 import org.joda.time.{Days, Hours, Minutes, Seconds}
 import play.api.libs.json._
-import play.api.data.validation._
 
 trait JsonFormats {
   protected[playUtils] def sanitizeDuration(secondsStr: String): Seconds = {
@@ -24,24 +23,24 @@ trait JsonFormats {
 
   /** Converts from seconds */
   implicit object DaysReads extends Reads[Days] {
-    def reads(json: JsValue) = json match {
+    def reads(json: JsValue): JsResult[Days] = json match {
       case JsNumber(number) => JsSuccess(Days.days(number.toInt / 60 / 60 / 24))
       case JsString(string) => JsSuccess(Days.days(sanitizeDuration(string).getSeconds / 60 / 60 / 24))
-      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.days"))))
+      case _ => JsError(JsPath() -> JsonValidationError("error.expected.joda.time.days"))
     }
   }
 
   /** Converts to seconds */
   implicit object DaysWrites extends Writes[Days] {
-    def writes(days: Days) = JsNumber(days.multipliedBy(60 * 60 * 24).getDays)
+    def writes(days: Days) = JsNumber(BigDecimal(days.multipliedBy(60 * 60 * 24).getDays))
   }
 
   /** Converts from seconds */
   implicit object HoursReads extends Reads[Hours] {
-    def reads(json: JsValue) = json match {
+    def reads(json: JsValue): JsResult[Hours] = json match {
       case JsNumber(number) => JsSuccess(Hours.hours(number.toInt / 60 / 60))
       case JsString(string) => JsSuccess(Hours.hours(sanitizeDuration(string).getSeconds / 60 / 60))
-      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.hours"))))
+      case _ => JsError(JsPath() -> JsonValidationError("error.expected.joda.time.hours"))
     }
   }
 
@@ -52,10 +51,10 @@ trait JsonFormats {
 
   /** Converts from seconds */
   implicit object MinutesReads extends Reads[Minutes] {
-    def reads(json: JsValue) = json match {
+    def reads(json: JsValue): JsResult[Minutes] = json match {
       case JsNumber(number) => JsSuccess(Minutes.minutes(number.toInt / 60))
       case JsString(string) => JsSuccess(Minutes.minutes(sanitizeDuration(string).getSeconds / 60))
-      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.minutes"))))
+      case _ => JsError(JsPath() -> JsonValidationError("error.expected.joda.time.minutes"))
     }
   }
 
@@ -65,10 +64,10 @@ trait JsonFormats {
   }
 
   implicit object SecondsReads extends Reads[Seconds] {
-    def reads(json: JsValue) = json match {
+    def reads(json: JsValue): JsResult[Seconds] = json match {
       case JsNumber(number) => JsSuccess(Seconds.seconds(number.toInt))
       case JsString(string) => JsSuccess(Seconds.seconds(sanitizeDuration(string).getSeconds))
-      case _ => JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.joda.time.Minutes"))))
+      case _ => JsError(JsPath() -> JsonValidationError("error.expected.joda.time.Minutes"))
     }
   }
 
@@ -81,7 +80,7 @@ trait JsonFormats {
       a <- aReads.reads(arr.head)
       b <- bReads.reads(arr(1))
     } yield (a, b)
-    case _ => JsError(Seq(JsPath() -> Seq(ValidationError("Expected array of two elements"))))
+    case _ => JsError(JsPath() -> JsonValidationError("Expected array of two elements"))
   }
 
   implicit def tuple2Writes[A, B](implicit aWrites: Writes[A], bWrites: Writes[B]): Writes[(A, B)] = new Writes[(A, B)] {
@@ -90,7 +89,7 @@ trait JsonFormats {
 
   implicit val mapLongIntReads: Reads[Map[Long, Int]] =
     new Reads[Map[Long, Int]] {
-      def reads(json: JsValue) =
+      def reads(json: JsValue): JsResult[Map[Long, Int]] =
         json.validate[Map[String, Int]].map(_.map {
           case (key, value) => key.toLong -> value
         })
@@ -98,7 +97,7 @@ trait JsonFormats {
 
   implicit val mapLongListIntReads: Reads[Map[Long, List[Int]]] = {
     new Reads[Map[Long, List[Int]]] {
-      def reads(json: JsValue) =
+      def reads(json: JsValue): JsResult[Map[Long, List[Int]]] =
         json.validate[Map[String, List[Int]]].map(_.map {
           case (key, value) => key.toLong -> value
         })
@@ -106,7 +105,7 @@ trait JsonFormats {
   }
 
   implicit val mapStringIntWrites = new Writes[Map[String, Int]] {
-    def writes(mapStringInt: Map[String, Int]) = {
+    def writes(mapStringInt: Map[String, Int]): JsValue = {
       Json.arr(mapStringInt.map {
         case (key, value) => Json.obj(key -> value)
       }.toSeq)
@@ -114,7 +113,7 @@ trait JsonFormats {
   }
 
   implicit val mapStringLongWrites = new Writes[Map[String, Long]] {
-    def writes(mapStringLong: Map[String, Long]) = {
+    def writes(mapStringLong: Map[String, Long]): JsValue = {
       Json.arr(mapStringLong.map {
         case (key, value) => Json.obj(key -> value)
       }.toSeq)
