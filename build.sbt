@@ -4,7 +4,7 @@ organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 scalaVersion := "2.12.2"
-crossScalaVersions := Seq("2.10.6", "2.11.8", scalaVersion.value)
+crossScalaVersions := Seq("2.10.6", "2.11.11", scalaVersion.value)
 
 scalacOptions ++= (
   scalaVersion {
@@ -64,7 +64,13 @@ libraryDependencies ++= scalaVersion {
     )
 }.value
 
-javacOptions ++= Seq("-Xlint:deprecation", "-Xlint:unchecked", "-source", "1.8", "-target", "1.8", "-g:vars")
+javacOptions ++= Seq(
+  "-Xlint:deprecation",
+  "-Xlint:unchecked",
+  "-source", "1.8",
+  "-target", "1.8",
+  "-g:vars"
+)
 
 resolvers ++= Seq(
   "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
@@ -82,10 +88,5 @@ logLevel in test := Level.Info
 // define the statements initially evaluated when entering 'console', 'console-quick', but not 'console-project'
 initialCommands in console := """
                                 |""".stripMargin
-
-bintrayOrganization := Some("micronautics")
-bintrayRepository := "play"
-
-publishArtifact in Test := false
 
 cancelable := true

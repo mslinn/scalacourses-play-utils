@@ -21,4 +21,7 @@ Add two lines to `build.sbt`.
 "micronautics/play on bintray" at "http://dl.bintray.com/micronautics/play"
 ````
 
-This library has been built against Scala 2.10.6 / Play 2.2.6 and Scala 2.11.8 / Play 2.5.12.
+This library has been built against Scala 2.10.6 / Play 2.2.6 and Scala 2.11.11 / Play 2.5.12.
+
+## Scaladoc
+[Here](http://mslinn.github.io/scalacourses-play-utils/latest/api/)
