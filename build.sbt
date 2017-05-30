@@ -3,8 +3,8 @@ name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-scalaVersion := "2.12.2"
-crossScalaVersions := Seq("2.10.6", "2.11.11", scalaVersion.value)
+scalaVersion := "2.11.11"
+crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
 
 scalacOptions ++= (
   scalaVersion {
@@ -42,18 +42,18 @@ libraryDependencies ++= scalaVersion {
   case sv if sv.startsWith("2.12") =>
     val playVer = "2.6.0-M1"
     Seq(
-      "com.typesafe.play"      %% "play"               % playVer    % "provided",
-      "com.typesafe.play"      %% "play-json"          % playVer    % "provided",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0-M2" % "test",
+      "com.typesafe.play"      %% "play"               % playVer     % "provided",
+      "com.typesafe.play"      %% "play-json"          % playVer     % "provided",
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0-RC1" % "test",
       "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
     )
 
   case sv if sv.startsWith("2.11") =>
-    val playVer = "2.5.12"
+    val playVer = "2.5.14"
     Seq(
       "com.typesafe.play"      %% "play"               % playVer % "provided",
       "com.typesafe.play"      %% "play-json"          % playVer % "provided",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
+      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % "test",
       "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
     )
 
