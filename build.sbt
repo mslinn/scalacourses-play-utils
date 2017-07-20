@@ -40,7 +40,7 @@ scalacOptions in (Compile, doc) ++= baseDirectory.map {
 
 libraryDependencies ++= scalaVersion {
   case sv if sv.startsWith("2.12") =>
-    val playVer = "2.6.0-M1"
+    val playVer = "2.6.2"
     Seq(
       "com.typesafe.play"      %% "play"               % playVer     % "provided",
       "com.typesafe.play"      %% "play-json"          % playVer     % "provided",
@@ -49,7 +49,7 @@ libraryDependencies ++= scalaVersion {
     )
 
   case sv if sv.startsWith("2.11") =>
-    val playVer = "2.5.14"
+    val playVer = "2.5.16"
     Seq(
       "com.typesafe.play"      %% "play"               % playVer % "provided",
       "com.typesafe.play"      %% "play-json"          % playVer % "provided",
