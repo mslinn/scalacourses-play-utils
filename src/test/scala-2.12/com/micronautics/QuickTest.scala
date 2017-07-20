@@ -3,9 +3,10 @@ package com.micronautics
 import org.joda.time.{Minutes, Seconds, Hours, Days}
 import play.api.libs.json._
 import org.scalatestplus.play._
+import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import com.micronautics.playUtils._
 
-class TestQuick extends PlaySpec with OneServerPerSuite with JsonFormats {
+class QuickTest extends PlaySpec with GuiceOneServerPerSuite with JsonFormats {
   def daySeconds(d: Int): BigDecimal    = BigDecimal(d * 60 * 60 * 24)
   def hourSeconds(h: Int): BigDecimal   = BigDecimal(h * 60 * 60)
   def minuteSeconds(m: Int): BigDecimal = BigDecimal(m * 60)
@@ -23,7 +24,7 @@ class TestQuick extends PlaySpec with OneServerPerSuite with JsonFormats {
       Json.toJson(JsString("00:01:00")).as[Minutes] mustEqual Minutes.minutes(1)
       Json.toJson(JsString("01:00:00")).as[Hours]   mustEqual Hours.hours(1)
 
-      Json.toJson("Five" -> 5.0) mustEqual Json.arr("Five", 5.0)
+      Json.toJson("Five" -> 5.0) mustEqual Json.toJson(List(JsString("Five"), JsNumber(5.0)))
       Json.toJson(Map(1L -> 2)) mustEqual Json.arr(List(JsNumber(1L), JsNumber(2)))
       Json.toJson(Map(1 -> List(2L, 3L))) mustEqual Json.arr(List(JsNumber(1), Json.arr(JsNumber(2), JsNumber(3))))
     }

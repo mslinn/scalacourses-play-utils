@@ -5,7 +5,7 @@ import play.api.libs.json._
 import org.scalatestplus.play._
 import com.micronautics.playUtils._
 
-class TestQuick extends PlaySpec with OneServerPerSuite with JsonFormats {
+class QuickTest extends PlaySpec with OneServerPerSuite with JsonFormats {
   def daySeconds(d: Int): BigDecimal    = BigDecimal(d * 60 * 60 * 24)
   def hourSeconds(h: Int): BigDecimal   = BigDecimal(h * 60 * 60)
   def minuteSeconds(m: Int): BigDecimal = BigDecimal(m * 60)

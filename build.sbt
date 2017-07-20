@@ -44,7 +44,7 @@ libraryDependencies ++= scalaVersion {
     Seq(
       "com.typesafe.play"      %% "play"               % playVer     % "provided",
       "com.typesafe.play"      %% "play-json"          % playVer     % "provided",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0-RC1" % "test",
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0"     % "test",
       "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
     )
 
