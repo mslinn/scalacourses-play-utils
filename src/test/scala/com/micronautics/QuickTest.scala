@@ -50,12 +50,14 @@ class QuickTest extends PlaySpec with GuiceOneServerPerSuite with JsonFormats {
 
       val actual2: JsResult[Map[String, Long]] = Json.fromJson[Map[String, Long]](jsValueMap)
       actual2.get mustEqual Map("key1" -> 1L, "key2" -> 2L)
-/*
-      Json.fromJson[Days](   Json.parse(daySeconds(9).toString)).get    mustEqual Days.days(9)
-      Json.fromJson[Hours](  Json.parse(hourSeconds(8).toString)).get   mustEqual Hours.hours(8)
-      Json.fromJson[Minutes](Json.parse(minuteSeconds(7).toString)).get mustEqual Minutes.minutes(7)
-      Json.fromJson[Seconds](Json.parse(seconds(6).toString)).get       mustEqual Seconds.seconds(6)
-*/
+
+      val x: String = daySeconds(9).toString
+      val y: JsValue = Json.parse(x)
+      val z: JsResult[Duration] = Json.fromJson[Duration](y)
+      Json.fromJson[Duration](Json.parse(daySeconds(9).toString))    mustEqual Duration.ofDays(9)
+      Json.fromJson[Duration](Json.parse(hourSeconds(8).toString))   mustEqual Duration.ofHours(8)
+      Json.fromJson[Duration](Json.parse(minuteSeconds(7).toString)) mustEqual Duration.ofMinutes(7)
+      Json.fromJson[Duration](Json.parse(seconds(6).toString))       mustEqual Duration.ofSeconds(6)
     }
 
     "Create Formatters for Java enums" in {

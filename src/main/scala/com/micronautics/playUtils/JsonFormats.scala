@@ -45,7 +45,8 @@ trait JsonFormats {
         case e: Exception =>
           JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
       }
-      case _ => JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
+      case _ => JsError(JsPath() ->
+        JsonValidationError("error.expected.java.time.period"))
     }
   }
 

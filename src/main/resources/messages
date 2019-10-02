@@ -1,3 +1,3 @@
-error.expected.joda.time.days=org.joda.time.Days value expected
-error.expected.joda.time.hours=org.joda.time.Hours value expected
-error.expected.joda.time.minutes=org.joda.time.Minutes value expected
+error.expected.java.time.days=org.joda.time.Days value expected
+error.expected.java.time.hours=org.joda.time.Hours value expected
+error.expected.java.time.minutes=org.joda.time.Minutes value expected
