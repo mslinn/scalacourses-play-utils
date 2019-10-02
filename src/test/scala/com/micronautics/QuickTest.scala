@@ -26,6 +26,12 @@ class QuickTest extends PlaySpec with GuiceOneServerPerSuite with JsonFormats {
       Json.toJson(Duration.ofMinutes(7).toMillis / 1000) mustEqual JsNumber(minuteSeconds(7))
       Json.toJson(Duration.ofSeconds(6).toMillis / 1000) mustEqual JsNumber(seconds(6))
 
+      val s =  Json.toJson(JsString("00:00:01")).as[Duration]
+      val m =  Json.toJson(JsString("00:01:00")).as[Duration]
+      val h =  Json.toJson(JsString("01:00:00")).as[Duration]
+      s.toString mustEqual "PT1S"
+      m.toString mustEqual "PT1M"
+      h.toString mustEqual "PT1H"
       Json.toJson(JsString("00:00:01")).as[Duration] mustEqual Duration.ofSeconds(1)
       Json.toJson(JsString("00:01:01")).as[Duration] mustEqual Duration.ofSeconds(61)
       Json.toJson(JsString("00:01:00")).as[Duration] mustEqual Duration.ofMinutes(1)

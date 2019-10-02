@@ -19,9 +19,9 @@ object JsonFormats {
     if (c1>=0) {
       val c2 = secondsStr.lastIndexOf(":")
       Duration
-        .ofHours(secondsStr.substring(c2+1).toLong)
+        .ofSeconds(secondsStr.substring(c2+1).toLong)
         .plusMinutes(secondsStr.substring(c1+1, c2).toLong)
-        .plusSeconds(secondsStr.substring(0, c1).toLong)
+        .plusHours(secondsStr.substring(0, c1).toLong)
     } else
       try {
         Duration.ofSeconds(secondsStr.toLong)
@@ -39,7 +39,12 @@ trait JsonFormats {
   /** Converts from seconds */
   implicit object DurationReads extends Reads[Duration] {
     def reads(json: JsValue): JsResult[Duration] = json match {
-      case JsString(string) => JsSuccess[Duration](Duration.parse(string))
+      case JsString(string) => try {
+        JsSuccess[Duration](sanitizeDuration(string))
+      } catch {
+        case e: Exception =>
+          JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
+      }
       case _ => JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
     }
   }
