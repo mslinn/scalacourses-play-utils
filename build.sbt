@@ -1,10 +1,11 @@
-version := "0.1.12"
+version := "0.2.1"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
-licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 
-scalaVersion := "2.11.11"
-crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
+//scalaVersion := "2.13.1"
+scalaVersion := "2.12.10"
+crossScalaVersions := Seq("2.12.10", "2.13.1")
 
 scalacOptions ++= (
   scalaVersion {
@@ -19,48 +20,36 @@ scalacOptions ++= (
     "-deprecation",
     "-encoding", "UTF-8",
     "-feature",
-    "-unchecked",
-    "-Ywarn-adapted-args",
-    "-Ywarn-dead-code",
-    "-Ywarn-numeric-widen",
-    "-Ywarn-value-discard",
-    "-Xfuture",
-    "-Xlint"
+    "-unchecked"
   )
 )
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
 scalacOptions in (Compile, doc) ++= baseDirectory.map {
-  (bd: File) => Seq[String](
+  bd: File => Seq[String](
      "-sourcepath", bd.getAbsolutePath,
      "-doc-source-url", s"https://github.com/mslinn/scalacourses-play-utils/tree/master€{FILE_PATH}.scala"
   )
 }.value
 
 libraryDependencies ++= scalaVersion {
+  case sv if sv.startsWith("2.13") =>
+    Seq(
+      "javax.inject"           %  "javax.inject"       % "1"      withSources(),
+      "com.typesafe.play"      %% "play"               % "2.7.3"  % Provided,
+      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided,
+      "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"  % Test,
+      "ch.qos.logback"         %  "logback-classic"    % "1.2.3"
+    )
+    Nil
+
   case sv if sv.startsWith("2.12") =>
-    val playVer = "2.6.2"
     Seq(
-      "com.typesafe.play"      %% "play"               % playVer     % "provided",
-      "com.typesafe.play"      %% "play-json"          % playVer     % "provided",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0"     % "test",
-      "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
-    )
-
-  case sv if sv.startsWith("2.11") =>
-    val playVer = "2.5.16"
-    Seq(
-      "com.typesafe.play"      %% "play"               % playVer % "provided",
-      "com.typesafe.play"      %% "play-json"          % playVer % "provided",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % "test",
-      "ch.qos.logback"         %  "logback-classic"    % "1.2.1"
-    )
-
-  case sv if sv.startsWith("2.10") =>
-    Seq(
-      "com.typesafe.play" %% "play" % "2.2.6" % "provided",
-      "org.scalatestplus" %% "play" % "1.0.0" % "test"
+      "com.typesafe.play"      %% "play"               % "2.6.23" % Provided,
+      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided,
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"  % Test,
+      "ch.qos.logback"         %  "logback-classic"    % "1.2.3"
     )
 }.value
 
@@ -73,7 +62,6 @@ javacOptions ++= Seq(
 )
 
 resolvers ++= Seq(
-  "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
 )
 
 logLevel := Level.Warn

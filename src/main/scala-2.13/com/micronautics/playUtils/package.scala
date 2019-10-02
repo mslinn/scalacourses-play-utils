@@ -14,7 +14,7 @@ package object playUtils {
     * Json.fromJson[DiscountEnum](JsString("FullPrice")) == DiscountEnum.FullPrice
     * }}}
     * @see [http://stackoverflow.com/a/34045056/553865] */
-  def javaEnumFormat[E <: Enum[E] : ClassTag] = new Format[E] {
+  def javaEnumFormat[E <: Enum[E] : ClassTag]: Format[E] = new Format[E] {
     override def reads(json: JsValue): JsResult[E] = json.validate[String] match {
       case JsSuccess(value, _) => try {
         val clazz = implicitly[ClassTag[E]].runtimeClass.asInstanceOf[Class[E]]

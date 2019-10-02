@@ -13,7 +13,7 @@ Add two lines to `build.sbt`.
 
  * Add the `scalacourses-play-utils` dependency:
 ````
-"com.micronautics" %% "scalacourses-play-utils" % "0.1.12" withSources()
+"com.micronautics" %% "scalacourses-play-utils" % "0.2.1" withSources()
 ````
 
  * Add this to the `resolvers`:
@@ -21,7 +21,11 @@ Add two lines to `build.sbt`.
 "micronautics/play on bintray" at "http://dl.bintray.com/micronautics/play"
 ````
 
-This library has been built against Scala 2.10.6 / Play 2.2.6 and Scala 2.11.11 / Play 2.5.12.
+This library has been built against
+  * Scala 2.10.6 / Play 2.2.6 
+  * Scala 2.11.11 / Play 2.5.19
+  * Scala 2.12.10 / Play 2.6.23
+  * Scala 2.13.1 / Play 2.7.3
 
 ## Scaladoc
 [Here](http://mslinn.github.io/scalacourses-play-utils/latest/api/)
