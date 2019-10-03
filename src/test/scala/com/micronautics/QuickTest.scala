@@ -4,7 +4,7 @@ import java.time.{Duration, LocalDate}
 import com.micronautics.playUtils._
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.libs.json.{JsNumber, JsResult, JsString, JsValue, Json}
+import play.api.libs.json.{JsNumber, JsResult, JsString, JsSuccess, JsValue, Json}
 
 class QuickTest extends PlaySpec with GuiceOneServerPerSuite with JsonFormats {
   def daySeconds(d: Int): BigDecimal    = BigDecimal(d * 60 * 60 * 24)
@@ -51,13 +51,10 @@ class QuickTest extends PlaySpec with GuiceOneServerPerSuite with JsonFormats {
       val actual2: JsResult[Map[String, Long]] = Json.fromJson[Map[String, Long]](jsValueMap)
       actual2.get mustEqual Map("key1" -> 1L, "key2" -> 2L)
 
-      val x: String = daySeconds(9).toString
-      val y: JsValue = Json.parse(x)
-      val z: JsResult[Duration] = Json.fromJson[Duration](y)
-      Json.fromJson[Duration](Json.parse(daySeconds(9).toString))    mustEqual Duration.ofDays(9)
-      Json.fromJson[Duration](Json.parse(hourSeconds(8).toString))   mustEqual Duration.ofHours(8)
-      Json.fromJson[Duration](Json.parse(minuteSeconds(7).toString)) mustEqual Duration.ofMinutes(7)
-      Json.fromJson[Duration](Json.parse(seconds(6).toString))       mustEqual Duration.ofSeconds(6)
+      Json.fromJson[Duration](Json.parse(daySeconds(9).toString))    mustEqual JsSuccess(Duration.ofDays(9))
+      Json.fromJson[Duration](Json.parse(hourSeconds(8).toString))   mustEqual JsSuccess(Duration.ofHours(8))
+      Json.fromJson[Duration](Json.parse(minuteSeconds(7).toString)) mustEqual JsSuccess(Duration.ofMinutes(7))
+      Json.fromJson[Duration](Json.parse(seconds(6).toString))       mustEqual JsSuccess(Duration.ofSeconds(6))
     }
 
     "Create Formatters for Java enums" in {

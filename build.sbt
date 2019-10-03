@@ -1,7 +1,7 @@
 version := "0.2.1"
 name := "scalacourses-play-utils"
 organization := "com.micronautics"
-licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
 //scalaVersion := "2.13.1"
 scalaVersion := "2.12.10"
@@ -37,8 +37,8 @@ libraryDependencies ++= scalaVersion {
   case sv if sv.startsWith("2.13") =>
     Seq(
       "javax.inject"           %  "javax.inject"       % "1"      withSources(),
-      "com.typesafe.play"      %% "play"               % "2.7.3"  % Provided,
-      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided,
+      "com.typesafe.play"      %% "play"               % "2.7.3"  % Provided withSources(),
+      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided withSources(),
       "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"  % Test,
       "ch.qos.logback"         %  "logback-classic"    % "1.2.3"
     )
@@ -46,8 +46,8 @@ libraryDependencies ++= scalaVersion {
 
   case sv if sv.startsWith("2.12") =>
     Seq(
-      "com.typesafe.play"      %% "play"               % "2.6.23" % Provided,
-      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided,
+      "com.typesafe.play"      %% "play"               % "2.6.23" % Provided withSources(),
+      "com.typesafe.play"      %% "play-json"          % "2.7.4"  % Provided withSources(),
       "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"  % Test,
       "ch.qos.logback"         %  "logback-classic"    % "1.2.3"
     )

@@ -39,12 +39,20 @@ trait JsonFormats {
   /** Converts from seconds */
   implicit object DurationReads extends Reads[Duration] {
     def reads(json: JsValue): JsResult[Duration] = json match {
+      case JsNumber(string) => try {
+        JsSuccess[Duration](sanitizeDuration(string.toString))
+      } catch {
+        case _: Exception =>
+          JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
+      }
+
       case JsString(string) => try {
         JsSuccess[Duration](sanitizeDuration(string))
       } catch {
-        case e: Exception =>
+        case _: Exception =>
           JsError(JsPath() -> JsonValidationError("error.expected.java.time.period"))
       }
+
       case _ => JsError(JsPath() ->
         JsonValidationError("error.expected.java.time.period"))
     }
