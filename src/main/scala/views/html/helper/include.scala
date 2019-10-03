@@ -1,14 +1,12 @@
 package views.html.helper
 
 import java.io.File
-import play.twirl.api.Html
-import play.api.{Environment, Play}
-import play.api.Play.current
+import play.api.Environment
 import play.api.i18n._
+import play.twirl.api.Html
 import scala.io.Source.fromFile
 
 object include {
-
   // The default is to look in the public dir, but you can change it if necessary
   def apply(filePath: String, rootDir: String = "public")
            (implicit env: Environment, lang: Lang): Html = {
