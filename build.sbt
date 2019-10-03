@@ -3,8 +3,8 @@ name := "scalacourses-play-utils"
 organization := "com.micronautics"
 licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
-//scalaVersion := "2.13.1"
-scalaVersion := "2.12.10"
+scalaVersion := "2.13.1"
+//scalaVersion := "2.12.10"
 crossScalaVersions := Seq("2.12.10", "2.13.1")
 
 scalacOptions ++= (
@@ -42,7 +42,6 @@ libraryDependencies ++= scalaVersion {
       "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"  % Test,
       "ch.qos.logback"         %  "logback-classic"    % "1.2.3"
     )
-    Nil
 
   case sv if sv.startsWith("2.12") =>
     Seq(
