@@ -1,10 +1,21 @@
+/* Copyright 2012-2019 Micronautics Research Corporation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License. */
+
 version := "0.2.1"
-name := "scalacourses-play-utils" // TODO provide a short yet descriptive name
-organization := "com.micronautics"  // TODO provide your organization's information
+name := "scalacourses-play-utils"
+organization := "com.micronautics"
 
-licenses += ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0/"))
+licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
-scalaVersion := "2.13.1"  // comment this line to use Scala 2.12
+scalaVersion := "2.13.1"    // comment this line to use Scala 2.12
 //scalaVersion := "2.12.10" // uncomment this line to use Scala 2.13
 crossScalaVersions := Seq("2.12.10", "2.13.1")
 
