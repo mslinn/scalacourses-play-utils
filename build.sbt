@@ -1,10 +1,11 @@
 version := "0.2.1"
-name := "scalacourses-play-utils"
-organization := "com.micronautics"
-licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
+name := "scalacourses-play-utils" // TODO provide a short yet descriptive name
+organization := "com.micronautics"  // TODO provide your organization's information
 
-scalaVersion := "2.13.1"
-//scalaVersion := "2.12.10"
+licenses += ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0/"))
+
+scalaVersion := "2.13.1"  // comment this line to use Scala 2.12
+//scalaVersion := "2.12.10" // uncomment this line to use Scala 2.13
 crossScalaVersions := Seq("2.12.10", "2.13.1")
 
 scalacOptions ++= (
