@@ -15,9 +15,9 @@ organization := "com.micronautics"
 
 licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
-scalaVersion := "2.13.1"    // comment this line to use Scala 2.12
-//scalaVersion := "2.12.10" // uncomment this line to use Scala 2.13
-crossScalaVersions := Seq("2.12.10", "2.13.1")
+scalaVersion := "2.13.2"    // comment this line to use Scala 2.12
+//scalaVersion := "2.12.11" // uncomment this line to use Scala 2.13
+crossScalaVersions := Seq("2.12.11", "2.13.2")
 
 scalacOptions ++= (
   scalaVersion {
